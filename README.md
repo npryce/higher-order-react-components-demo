@@ -21,7 +21,7 @@ On MacOS X these can all be installed with Homebrew.
 
 
 To build:
-
+    % npm install
     % make
 
 To run:
