@@ -7,6 +7,9 @@ var Country = require('./country');
 var CountryChooser = require('./country-chooser');
 var Promised = require('./promised');
 
+//var OldAsyncCountry = require('./old-async-country');
+//var OldAsyncCountryChooser = require('./old-async-country-chooser');
+
 var AsyncCountry = Promised(Country);
 var AsyncCountryChooser = Promised(CountryChooser);
 
@@ -33,11 +36,15 @@ module.exports.start = function() {
 	var countryIso = (window.location.search || "?gb").substring(1);
 	
     ReactDOM.render(
+//		<OldAsyncCountry promise={fetchJson('data/'+countryIso+'.json')}/>,
 		<AsyncCountry promise={fetchJson('data/'+countryIso+'.json')}/>,
 		document.getElementById("country"));
 	
 	ReactDOM.render(
+//		<OldAsyncCountryChooser promise={fetchJson('data/countries.json')} 
+//							    onSelect={changeCountry}/>,
 		<AsyncCountryChooser promise={fetchJson('data/countries.json').then(R.objOf('countries'))} 
 							 onSelect={changeCountry}/>,
+
 		document.getElementById("countries"));
 };
