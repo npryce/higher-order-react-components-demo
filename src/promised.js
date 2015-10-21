@@ -1,5 +1,6 @@
 
 var React = require('react');
+var R = require('ramda');
 
 function Promised(Decorated) {
 	return React.createClass({
@@ -17,7 +18,8 @@ function Promised(Decorated) {
 				return <span>Error: {this.state.error.message}</span>;
 			}
 			else {
-				return <Decorated {...this.props} {...this.state.value}/>;
+				var propsWithoutThePromise = R.dissoc('promise', this.props);
+				return <Decorated {...propsWithoutThePromise} {...this.state.value}/>;
 			}
 		},
 		
