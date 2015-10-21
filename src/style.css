@@ -1,1 +1,10 @@
 @import "flags/flag-icon.css";
+
+body {
+	font-family: sans-serif;
+}
+
+.country-name {
+	margin-left: 0.25em;
+}
+
