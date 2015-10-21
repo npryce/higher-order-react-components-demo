@@ -1,6 +1,5 @@
 
 var React = require('react');
-var Promised = require('./promised');
 
 var Country = ({name, iso}) => 
 	<span className="country">
