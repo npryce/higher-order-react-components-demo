@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "dependencies": {
     "flag-icon-css": "^0.8.2",
-    "ramda": "^0.17.1",
+    "ramda": "^0.18.0",
     "react": "^0.14.0",
     "react-dom": "^0.14.0"
   },

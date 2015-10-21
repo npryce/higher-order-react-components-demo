@@ -18,7 +18,8 @@ built_files			= $(app_bundle) \
 					  $(css_source_files:src/%.css=out/dist/%.css) \
 					  $(flags_css_files:$(lib_flags)/css/%=out/dist/flags/%) \
 					  $(flags_image_files:$(lib_flags)/flags/%=out/dist/flags/%) \
-					  $(json_files:data/%=out/dist/data/%)
+					  $(json_files:data/%=out/dist/data/%) \
+					  out/dist/data/countries.json
 
 npm_bin		:= $(abspath node_modules/.bin)
 browserify	= $(npm_bin)/browserify
@@ -53,6 +54,9 @@ out/dist/flags/%.svg: $(lib_flags)/flags/%.svg
 out/dist/data/%.json: data/%.json
 	$(copy)
 	
+out/dist/data/countries.json: $(json_files)
+	jq --slurp . $^ > $@
+
 available: $(build_files)
 	(cd out/dist && $(npm_bin)/http-server -p $(port) && --cors)
 

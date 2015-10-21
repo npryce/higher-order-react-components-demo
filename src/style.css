@@ -8,3 +8,15 @@ body {
 	margin-left: 0.25em;
 }
 
+.country-chooser {
+	list-style: none;
+	cursor: pointer;
+}
+
+.country-chooser li {
+	padding: 0.25em;
+}
+
+.country-chooser li:hover {
+	background-color: #FFFFDD;
+}
