@@ -1,0 +1,17 @@
+{
+  "name": "horcs-example",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "flag-icon-css": "^0.8.2",
+    "ramda": "^0.17.1",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babelify": "^6.3.0",
+    "browserify": "^11.2.0",
+    "http-server": "^0.8.5"
+  }
+}
