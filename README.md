@@ -29,5 +29,5 @@ To run:
 Execute the command: 
     % make available
 	
-Then open http://localhost:8000 in a modern web browser.
+Then open http://localhost:8000/ in a modern web browser.
 
