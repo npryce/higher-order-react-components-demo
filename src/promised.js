@@ -2,7 +2,7 @@
 var React = require('react');
 var R = require('ramda');
 
-var Promised = Decorated => class Promised extends React.Component {
+var Promised = Decorated => class extends React.Component {
     constructor(props) {
 	super(props);
 	this.state = {
