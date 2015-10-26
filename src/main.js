@@ -10,8 +10,8 @@ var Promised = require('./promised');
 //var OldAsyncCountry = require('./old-async-country');
 //var OldAsyncCountryChooser = require('./old-async-country-chooser');
 
-var AsyncCountry = Promised(Country);
-var AsyncCountryChooser = Promised(CountryChooser);
+var AsyncCountry = Promised("country", Country);
+var AsyncCountryChooser = Promised("countries", CountryChooser);
 
 var checkStatus = (response) => {
     if (response.status != 200) {
@@ -37,13 +37,13 @@ module.exports.start = function() {
     
     ReactDOM.render(
 //                <OldAsyncCountry promise={fetchJson('data/'+countryIso+'.json')}/>,
-        <AsyncCountry promise={fetchJson('data/'+countryIso+'.json')}/>,
+        <AsyncCountry country={fetchJson('data/'+countryIso+'.json')}/>,
         document.getElementById("country"));
         
     ReactDOM.render(
 //                <OldAsyncCountryChooser promise={fetchJson('data/countries.json')} 
 //                                                            onSelect={changeCountry}/>,
-        <AsyncCountryChooser promise={fetchJson('data/countries.json').then(R.objOf('countries'))} 
+        <AsyncCountryChooser countries={fetchJson('data/countries.json').then(R.objOf('countries'))} 
                              onSelect={changeCountry}/>,
         document.getElementById("countries"));
 };
