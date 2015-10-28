@@ -279,10 +279,9 @@ var AsyncCountryChooser = Promised("countries", CountryChooser);
 
 ...
 <AsyncCountry country={fetchJson('data/'+countryIso+'.json')}/>
-...
-<AsyncCountryChooser    
-    countries={fetchJson('data/countries.json').then(R.objOf('countries'))} 
-    onSelect={changeCountry}/>
+
+<AsyncCountryChooser countries={fetchJson('data/countries.json').then(list => {countries: list})} 
+                     onSelect={changeCountry}/>
 ~~~~~~~~~~~~~~~
 
 If it is to be compatible with arbitrary components, a higher-order component must provide a way to control the interface between the decorator and decorated components to avoid name clash and map the data provided by the decorator to the props expected by the decorated component.
