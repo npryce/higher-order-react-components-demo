@@ -1,9 +1,9 @@
 Higher Order React Components
 =============================
 
-When writing user interfaces with the React framework, I often find that several of my components have similar behaviour. For example, I may have different components that display the eventual value of a [promise], display changing values of an Rx event stream, are sources or targets for drag-and-drop interactions, and so on.  I want to define these common behaviours once and compose them into my component classes where required.  
+When writing user interfaces with the React framework, I often find that several of my components have similar behaviour. For example, I may have different components that display the eventual value of a [promise][], display changing values of an Rx event stream, are sources or targets for drag-and-drop interactions, and so on.  I want to define these common behaviours once and compose them into my component classes where required.  This, in a nutshell, is what "higher-order components" let me do.
 
-This, in a nutshell, is what "higher-order components" let me do. They are a superior alternative to JavaScript prototypes, [ES6 class inheritance](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Sub_classing_with_extends) and [React mixins](https://facebook.github.io/react/docs/reusable-components.html#mixins).  Prototypes and ES6 class inheritance (which are the same thing under the hood) are limited to single inheritance, so a component class cannot inherit behaviour from multiple superclasses. React mixins are not supported in ES6 classes and look likely to be dropped from the React API in a future release.  Higher-order components, on the other hand, let you compose multiple behaviours into a component class, even if written as ES6 class.  They can also be used with components written with the old ES5 syntax.
+Higher-order components are a superior alternative to JavaScript prototypes, [ES6 class inheritance][] and [React mixins][].  Prototypes and ES6 class inheritance (which are the same thing under the hood) are limited to single inheritance, so a component class cannot inherit behaviour from multiple superclasses. React mixins are not supported in ES6 classes and look likely to be dropped from the React API in a future release.  Higher-order components, on the other hand, let you compose multiple behaviours into a component class, even if written as ES6 class.  They can also be used with components written with the old ES5 syntax.
 
 
 An Example Use Case for Higher-Order Components
@@ -126,7 +126,7 @@ The CountryChooser component cannot use the Country component to display the cou
 
 What can we do?
 
-We could extract the promise event handling into a base class. But JavaScript only supports single inheritance, so we if our components inherit event handling for promises, they cannot inherit base classes that provide event handling for other things, such as user interaction ^[for example, in recent project we used higher-order components to compose live updates, drag-source and drop-target behaviour into stateless rendering components]. And although it disentangles the promise event handling from the rendering, it doesn't disentangle the rendering from the promise event handling, so we still couldn't use the Country component within the CountryChooser.
+We could extract the promise event handling into a base class. But JavaScript only supports single inheritance, so we if our components inherit event handling for promises, they cannot inherit base classes that provide event handling for other things, such as user interaction ^[for example, in recent project we needed to compose live updates, drag-source and drop-target behaviour into stateless rendering components]. And although it disentangles the promise event handling from the rendering, it doesn't disentangle the rendering from the promise event handling, so we still couldn't use the Country component within the CountryChooser.
 
 It sounds like a job for mixins, but React's mixins don’t work with ES6 classes and are going to be dropped from the API.
 
@@ -141,9 +141,9 @@ As a shorthand, in the rest of this article I'm going to call class passed to th
 
 A decorator component usually handles events on behalf of the decorated component. It maintains some state and communicates with the decorated component by passing state values and callbacks to the decorated component via its props.
 
-Let's assume we have a higher-order component called `Promised` that translates a promise of a value into props for a decorated component. The decorator component performs all the state management required to use the promise. This means that decorated components can be stateless, only concerned with presentation. 
+Let's assume we have a higher-order component called Promised that translates a promise of a value into props for a decorated component. The decorator component performs all the state management required to use the promise. This means that decorated components can be stateless, only concerned with presentation. 
 
-The `Country` component now only needs to display to country information:
+The Country component now only needs to display to country information:
 
 ~~~~~~~~~~~~~~javascript
 var Country = ({name, iso}) => 
@@ -153,7 +153,7 @@ var Country = ({name, iso}) =>
     </span>;
 ~~~~~~~~~~~~~~
 
-To define a component that receives the country information asynchronously as a promise, we decorate it with the `Promised` higher-order component:
+To define a component that receives the country information asynchronously as a promise, we decorate it with the Promised higher-order component:
 
 ~~~~~~~~~~~~~~javascript
 var AsyncCountry = Promised(Country);
@@ -292,7 +292,7 @@ If it is to be compatible with arbitrary components, a higher-order component mu
 Higher-Order Components as Decorators
 -------------------------------------
 
-A future version of EcmaScript may add syntax for [function and class decorators].  We can make our higher order component a decorator by making it return a function of one parameter that is applied to the decorated component class:
+A future version of EcmaScript may add syntax for [function and class decorators][].  We can make our higher order component a decorator by making it return a function of one parameter that is applied to the decorated component class:
 
 ~~~~~~~~~~~~~~~javascript
 var Promised = promiseProp => Decorated => class extends React.Component {
@@ -331,3 +331,8 @@ var AsyncCountry = Promised("country", Country);
 ~~~~~~~~~~~~~~~
 
 
+
+[promise]: https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[es6 class inheritance]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Sub_classing_with_extends
+[react mixins]: https://facebook.github.io/react/docs/reusable-components.html#mixins
+[function and class decorators]: https://github.com/wycats/javascript-decorators
