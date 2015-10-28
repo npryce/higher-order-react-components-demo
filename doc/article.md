@@ -1,12 +1,13 @@
 Higher Order React Components
 =============================
 
-In React, “higher-order components” is a technique for defining common functionality that can be predictably composed with existing component classes to augment their behaviour. They are a superior alternative to JavaScript prototypes, [ES6 class inheritance](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Sub_classing_with_extends) and [React mixins](https://facebook.github.io/react/docs/reusable-components.html#mixins).  Prototype and ES6 class inheritance (which are the same thing under the hood) are limited to single inheritance, so a component class cannot inherit behaviour from multiple superclasses. React mixins are not supported in ES6 classes and look likely to be dropped from the React API in a future release.  Higher-order components, on the other hand, let you compose multiple behaviours into a component class, even if written as ES6 class.  They can also be used with components written with the old ES5 syntax.
+When writing user interfaces with the React framework, I often find that several of my components have similar behaviour. For example, I may have different components that display the eventual value of a [promise], display changing values of an Rx event stream, are sources or targets for drag-and-drop interactions, and so on.  I want to define these common behaviours once and compose them into my component classes where required.  
 
-Let’s look at why we might want to use higher-order components.
+This, in a nutshell, is what "higher-order components" let me do. They are a superior alternative to JavaScript prototypes, [ES6 class inheritance](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Sub_classing_with_extends) and [React mixins](https://facebook.github.io/react/docs/reusable-components.html#mixins).  Prototypes and ES6 class inheritance (which are the same thing under the hood) are limited to single inheritance, so a component class cannot inherit behaviour from multiple superclasses. React mixins are not supported in ES6 classes and look likely to be dropped from the React API in a future release.  Higher-order components, on the other hand, let you compose multiple behaviours into a component class, even if written as ES6 class.  They can also be used with components written with the old ES5 syntax.
 
-An Example Problem
-------------------
+
+An Example Use Case for Higher-Order Components
+-----------------------------------------------
 
 Imagine we’re writing an international e-commerce site. Each customer has a preferred country that the site uses to calculate shipping costs and determine the currency in which to display prices.  The site displays the customer’s preferred country in the navigation bar at the top of each page.  If the user is travelling, they can select their preferred country from a menu of countries supported by the site.
 
@@ -121,11 +122,11 @@ There’s a lot of duplication between the two components.
 
 They duplicate the state machine required to receive and render data obtained asynchronously from a promise.  These are not the only React components in the application that need to display data loaded asynchronously from the server, so addressing that duplication will shrink the code significantly.
 
-The `CountryChooser` component cannot use the `Country` component to display the countries in the list because the event handling is intermingled with the presentation of the data. It therefore duplicates the code to render a country as HTML.  We don't want these HTML fragments diverging, because that will then create further duplication in our CSS stylesheets.
+The CountryChooser component cannot use the Country component to display the countries in the list because the event handling is intermingled with the presentation of the data. It therefore duplicates the code to render a country as HTML.  We don't want these HTML fragments diverging, because that will then create further duplication in our CSS stylesheets.
 
 What can we do?
 
-We could extract the promise event handling into a base class. But JavaScript only supports single inheritance, so we if our components inherit event handling for promises, they cannot inherit base classes that provide event handling for other things, such as user interaction ^[for example, in recent project we used higher-order components to compose live updates, drag-source and drop-target behaviour into stateless rendering components]. And although it disentangles the promise event handling from the rendering, it doesn't disentangle the rendering from the promise event handling, so we still couldn't use the 'Country' component within the 'CountryChooser'.
+We could extract the promise event handling into a base class. But JavaScript only supports single inheritance, so we if our components inherit event handling for promises, they cannot inherit base classes that provide event handling for other things, such as user interaction ^[for example, in recent project we used higher-order components to compose live updates, drag-source and drop-target behaviour into stateless rendering components]. And although it disentangles the promise event handling from the rendering, it doesn't disentangle the rendering from the promise event handling, so we still couldn't use the Country component within the CountryChooser.
 
 It sounds like a job for mixins, but React's mixins don’t work with ES6 classes and are going to be dropped from the API.
 
