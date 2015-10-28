@@ -125,7 +125,7 @@ The `CountryChooser` component cannot use the `Country` component to display the
 
 What can we do?
 
-We could extract the promise event handling into a base class. But JavaScript only supports single inheritance, so we if our components inherit event handling for promises, they cannot inherit base classes that provide event handling for other things, such as user interaction [^for example, in recent project we used higher-order components to compose live updates, drag-source and drop-target behaviour into stateless rendering components]. And although it disentangles the promise event handling from the rendering, it doesn't disentangle the rendering from the promise event handling, so we still couldn't use the 'Country' component within the 'CountryChooser'.
+We could extract the promise event handling into a base class. But JavaScript only supports single inheritance, so we if our components inherit event handling for promises, they cannot inherit base classes that provide event handling for other things, such as user interaction ^[for example, in recent project we used higher-order components to compose live updates, drag-source and drop-target behaviour into stateless rendering components]. And although it disentangles the promise event handling from the rendering, it doesn't disentangle the rendering from the promise event handling, so we still couldn't use the 'Country' component within the 'CountryChooser'.
 
 It sounds like a job for mixins, but React's mixins don’t work with ES6 classes and are going to be dropped from the API.
 
@@ -134,7 +134,7 @@ Higher-order components to the rescue!
 What is a Higher-Order Component?
 ---------------------------------
 
-A higher-order component is merely a function from component class to component class. The function takes a component class as a parameter and returns a new component class that wraps useful functionality around the class passed in [^actually, a higher-order component could take more than one components as parameters, but we only need one in this example].  If you’re familiar with the "Gang of Four" design patterns and are thinking "Decorator pattern", you’re pretty much bang on.
+A higher-order component is merely a function from component class to component class. The function takes a component class as a parameter and returns a new component class that wraps useful functionality around the class passed in ^[actually, a higher-order component could take more than one components as parameters, but we only need one in this example].  If you’re familiar with the "Gang of Four" design patterns and are thinking "Decorator pattern", you’re pretty much bang on.
 
 As a shorthand, in the rest of this article I'm going to call class passed to the function the "decorated class", the class returned by the function the "decorator class", and the function itself as the “higher-order component”.  I’ll use “decorated component” and “decorator component” to mean instances of the decorated and decorator classes.
 
