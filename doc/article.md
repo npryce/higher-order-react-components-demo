@@ -1,7 +1,7 @@
 Higher Order React Components
 =============================
 
-When writing user interfaces with the React framework, I often find that several of my components have similar behaviour. For example, I may have different components that display the eventual value of a [promise][], display changing values of an Rx event stream, are sources or targets for drag-and-drop interactions, and so on.  I want to define these common behaviours once and compose them into my component classes where required.  This, in a nutshell, is what "higher-order components" let me do.
+When writing user interfaces with the React framework, I often find that several of my components have similar behaviour. For example, I may have different components that display the eventual value of a [promise][], or display changing values of an [Rx event stream], are sources or targets for drag-and-drop interactions, and so on.  I want to define these common behaviours once and compose them into my component classes where required.  This, in a nutshell, is what "higher-order components" let me do.
 
 Higher-order components are a superior alternative to JavaScript prototypes, [ES6 class inheritance][] and [React mixins][].  Prototypes and ES6 class inheritance (which are the same thing under the hood) are limited to single inheritance, so a component class cannot inherit behaviour from multiple superclasses. React mixins are not supported in ES6 classes and look likely to be dropped from the React API in a future release.  Higher-order components, on the other hand, let you compose multiple behaviours into a component class, even if written as ES6 class.  They can also be used with components written with the old ES5 syntax.
 
@@ -336,3 +336,4 @@ var AsyncCountry = Promised("country", Country);
 [react mixins]: https://facebook.github.io/react/docs/reusable-components.html#mixins
 [function and class decorators]: https://github.com/wycats/javascript-decorators
 [curry function]: http://ramdajs.com/docs/#curry
+[rx event stream]: https://github.com/Reactive-Extensions/RxJS
