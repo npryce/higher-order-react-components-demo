@@ -31,12 +31,12 @@ The Country component below displays the user’s preferred country.  Because co
 ~~~~~~~~~~~~~~~~~~~javascript
 class Country extends React.Component {
     constructor(props) {
-	super(props);
-	this.state = {loading: true, error: null, country: null};
+        super(props);
+        this.state = {loading: true, error: null, country: null};
     }
     
     render() {
-	if (this.state.loading) {
+        if (this.state.loading) {
             return <span>Loading...</span>;
         }
         else if (this.state.error !== null) {
@@ -74,32 +74,32 @@ The CountryChooser component below displays the list of available countries, whi
 ~~~~~~~~~~~~~~~~~~~javascript
 class CountryChooser extends React.Component {
     constructor(props) {
-	super(props);
-	this.state = {loading: true, error: null, countries: null};
+        super(props);
+        this.state = {loading: true, error: null, countries: null};
     }
     
     render() {
-	if (this.state.loading) {
-	    return <span>Loading...</span>;
-	}
-	else if (this.state.error !== null) {
-	    return <span>Error: {this.state.error.message}</span>;
-	}
-	else {
-	    return (
-	        <ul className="country-chooser">
-		    {this.state.countries.map(c => 
-		        <li key={c.iso} 
+        if (this.state.loading) {
+            return <span>Loading...</span>;
+        }
+        else if (this.state.error !== null) {
+            return <span>Error: {this.state.error.message}</span>;
+        }
+        else {
+            return (
+                <ul className="country-chooser">
+                    {this.state.countries.map(c => 
+                        <li key={c.iso} 
                         onClick={() => this.props.onSelect(c.iso)}>
-			      <span className="country">
-			          <span className={"flag-icon flag-icon-"+c.iso}/>
-				<span className="country-name">{c.name}</span>
-			    </span>
-			</li>)
-		    }
-		</ul>
-	    );
-	}
+                              <span className="country">
+                                  <span className={"flag-icon flag-icon-"+c.iso}/>
+                                <span className="country-name">{c.name}</span>
+                            </span>
+                        </li>)
+                    }
+                </ul>
+            );
+        }
     }
     
     componentDidMount() {
@@ -193,28 +193,28 @@ var R = require('ramda');
 
 var Promised = Decorated => class Promised extends React.Component { // (1)
     constructor(props) {
-	super(props);
-	this.state = {loading: true, error: null, value: null};
+        super(props);
+        this.state = {loading: true, error: null, value: null};
     }
     
     render() {
-	if (this.state.loading) {
-	    return <span>Loading...</span>;
-	}
-	else if (this.state.error !== null) {
-	    return <span>Error: {this.state.error.message}</span>;
-	}
-	else {
-	    var propsWithoutThePromise = R.dissoc('promise', this.props); // (2)
-	    return <Decorated {...propsWithoutThePromise}
+        if (this.state.loading) {
+            return <span>Loading...</span>;
+        }
+        else if (this.state.error !== null) {
+            return <span>Error: {this.state.error.message}</span>;
+        }
+        else {
+            var propsWithoutThePromise = R.dissoc('promise', this.props); // (2)
+            return <Decorated {...propsWithoutThePromise}
                             {...this.state.value}/>;
-	}
+        }
     }
     
     componentDidMount() {
-	this.props.promise.then(
-	    value => this.setState({loading: false, value: value}),
-	    error => this.setState({loading: false, error: error}));
+        this.props.promise.then(
+            value => this.setState({loading: false, value: value}),
+            error => this.setState({loading: false, error: error}));
     }
 };
 ~~~~~~~~~~~~~~~
@@ -246,27 +246,27 @@ To make the Promised function truly context independent, we need to give the cal
 ~~~~~~~~~~~~~~~javascript
 var Promised = (promiseProp, Decorated) => class extends React.Component {
     constructor(props) {
-	super(props);
-	this.state = {loading: true, error: null, value: null};
+        super(props);
+        this.state = {loading: true, error: null, value: null};
     }
     
     render() {
-	if (this.state.loading) {
-	    return <span>Loading...</span>;
-	}
-	else if (this.state.error !== null) {
-	    return <span>Error: {this.state.error.message}</span>;
-	}
-	else {
-	    var propsWithoutThePromise = R.dissoc(promiseProp, this.props);
-	    return <Decorated {...propsWithoutThePromise} {...this.state.value}/>;
-	}
+        if (this.state.loading) {
+            return <span>Loading...</span>;
+        }
+        else if (this.state.error !== null) {
+            return <span>Error: {this.state.error.message}</span>;
+        }
+        else {
+            var propsWithoutThePromise = R.dissoc(promiseProp, this.props);
+            return <Decorated {...propsWithoutThePromise} {...this.state.value}/>;
+        }
     }
     
     componentDidMount() {
-	this.props[promiseProp].then(
-	    value => this.setState({loading: false, value: value}),
-	    error => this.setState({loading: false, error: error}));
+        this.props[promiseProp].then(
+            value => this.setState({loading: false, value: value}),
+            error => this.setState({loading: false, error: error}));
     }
 };
 ~~~~~~~~~~~~~~~
