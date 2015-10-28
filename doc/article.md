@@ -159,7 +159,7 @@ To define a component that receives the country information asynchronously as a 
 var AsyncCountry = Promised(Country);
 ~~~~~~~~~~~~~~
 
-The `CountryChooser` can also be written as a stateless component, and can now use the Country component to display each country:
+The CountryChooser can also be written as a stateless component, and can now use the Country component to display each country:
 
 ~~~~~~~~~~~~~~javascript
 var CountryChooser = ({countries, onSelect}) =>
@@ -173,7 +173,7 @@ var CountryChooser = ({countries, onSelect}) =>
     </ul>;
 ~~~~~~~~~~~~~~
 
-And can also be decorated with `Promised` to receive the list of countries as a promise:
+And can also be decorated with Promised to receive the list of countries as a promise:
 
 ~~~~~~~~~~~~~~javascript
 var AsyncCountryChooser = Promised(CountryChooser);
@@ -184,9 +184,9 @@ By moving state management into a generic higher-order component, we have made o
 Implementing the Higher-Order Component
 ---------------------------------------
 
-The `Promised` function takes a component class to be decorated as a parameter and returns a new decorator class.  Like functions, classes in ES6 are first-class values.
+The Promised function takes a component class to be decorated as a parameter and returns a new decorator class.  Like functions, classes in ES6 are first-class values.
 
-One of the props of the decorator class is a promise of props for the decorated component. It passes all other props through to the decorated component unchanged. This lets you configure a `Promised(X)` component with the same props you would use to configure an undecorated `X` component. For example, you could initialise the decorator with event callbacks that get passed to the decorated component when it is rendered.
+One of the props of the decorator class is a promise of props for the decorated component. It passes all other props through to the decorated component unchanged. This lets you configure a Promised(X) component with the same props you would use to configure an undecorated X component. For example, you could initialise the decorator with event callbacks that get passed to the decorated component when it is rendered.
 
 ~~~~~~~~~~~~~~~javascript
 var React = require('react');
@@ -222,7 +222,7 @@ var Promised = Decorated => class Promised extends React.Component { // (1)
 
 A few noteworthy points...
 
-The parameter name for the decorated component (`Decorated` in this function) must start with a with a capital letter so that the JSX compiler recognises it as a React component, rather than an HTML DOM element.
+The parameter name for the decorated component (Decorated in this function) must start with a with a capital letter so that the JSX compiler recognises it as a React component, rather than an HTML DOM element.
 
 When the decorator renders the decorated component, it creates the props for decorated component by merging its own properties, except for the promise, with the properties of the promise value.  The code above uses a [utility function from the Ramda library](http://ramdajs.com/docs/#dissoc) to remove the promise from the decorator component's props, and uses ES6 "spread" syntax to remove merge the props with the properties of the promise value.
 
@@ -315,7 +315,7 @@ But when used as a function, our higher-order component is rather clumsy to invo
 var AsyncCountry = Promised("country")(Country);
 ~~~~~~~~~~~~~~~
 
-If we use Ramda's `curry` function, we can support both uses, as a decorator and as a function:
+If we use Ramda's [curry function], we can support both uses, as a decorator and as a function:
 
 ~~~~~~~~~~~~~~~javascript
 var Promised = R.curry((promiseProp, Decorated) => class extends React.Component {
@@ -331,8 +331,8 @@ var AsyncCountry = Promised("country", Country);
 ~~~~~~~~~~~~~~~
 
 
-
 [promise]: https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise
 [es6 class inheritance]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Sub_classing_with_extends
 [react mixins]: https://facebook.github.io/react/docs/reusable-components.html#mixins
 [function and class decorators]: https://github.com/wycats/javascript-decorators
+[curry function]: http://ramdajs.com/docs/#curry
