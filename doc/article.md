@@ -186,7 +186,7 @@ Implementing the Higher-Order Component
 
 The Promised function takes a component class to be decorated as a parameter and returns a new decorator class.  Like functions, classes in ES6 are first-class values.
 
-One of the props of the decorator class is a promise of props for the decorated component. It passes all other props through to the decorated component unchanged. This lets you configure a Promised(X) component with the same props you would use to configure an undecorated X component. For example, you could initialise the decorator with event callbacks that get passed to the decorated component when it is rendered.
+Client code passes a promise of props for the decorated component to the decorator as a prop named "promise". The decorator passes all other props through to the decorated component unchanged. This lets you configure a Promised(X) component with the same props you would use to configure an undecorated X component. For example, you could initialise the decorator with event callbacks that get passed to the decorated component when it is rendered.
 
 ~~~~~~~~~~~~~~~javascript
 var React = require('react');
@@ -235,12 +235,11 @@ We can address that by wrapping the array in an object in the promise chain, lik
 
 ~~~~~~~~~~~~~~~
 <AsyncCountryChooser 
-    promise={fetchJson('data/countries.json')
-                   .then(list => {countries: list})} 
+    promise={fetchJson('data/countries.json').then(list => {countries: list})} 
     onSelect={changeCountry}/>,
 ~~~~~~~~~~~~~~~
 
-But what about the name of the "promise" prop?  Suppose we want to decorate a component that already has a prop named "promise" that we need to pass through the Promised decorator?  As it currently stands, we cannot do this.
+The name of the "promise" prop is also a problem.  If we want to decorate a component that already has a prop named "promise" that we need to pass through the Promised decorator, the current implementation would not let us do so.
 
 To make the Promised function truly context independent, we need to give the caller control over the prop name used to pass the promise to the decorator, by letting them pass it as a parameter:
 
